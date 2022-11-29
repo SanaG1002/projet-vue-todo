@@ -5,6 +5,19 @@ import ToolingIcon from './icons/IconTooling.vue'
 import EcosystemIcon from './icons/IconEcosystem.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
+import TodosService from '../services/todos-service'
+import { ref, onMounted } from "vue";
+
+const todosService = new TodosService();
+
+const todos = ref([]);
+
+const getTodos = async () => {
+  todos.value = await todosService.getTodos();
+};
+
+onMounted(getTodos);
+
 </script>
 
 <template>
