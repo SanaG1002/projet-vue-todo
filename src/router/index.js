@@ -1,9 +1,28 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import LoginView from '../views/LoginView.vue'
+import RegisterView from '../views/RegisterView.vue'
+import AuthService from '../services/auth-service'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: '/auth',
+      name: 'auth',
+      children: [
+        {
+          path: 'login',
+          name: 'login',
+          component: LoginView
+        },
+        {
+          path: 'register',
+          name: 'register',
+          component: RegisterView
+        }
+      ]
+    },
     {
       path: '/',
       name: 'home',
@@ -17,15 +36,22 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue')
     }
-    //{
-     // path: '/test',
-    //  name: 'test',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      //component: () => import('../views/AboutView.vue')
-    //}
   ]
 })
+
+const authService = new AuthService()
+
+router.beforeEach(async (to) => {
+  const routes = [
+    { name: 'login' },
+    { name: 'register' },
+  ]
+
+  if (routes.every(route => route.name !== to.name)) {
+    if (!(await authService.authenticate())) {
+      return { name: 'login' };
+    }
+  }
+});
 
 export default router

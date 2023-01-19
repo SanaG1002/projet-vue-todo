@@ -1,14 +1,20 @@
 <script setup>
-defineProps({
+import { ref } from "vue";
+const props = defineProps({
   msg: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+  id: String,
+});
+const myId = ref(props.id);
+setTimeout(() => {
+  myId.value = "hello-world-2";
+}, 10000);
 </script>
 
 <template>
-  <div class="greetings">
+  <div :id="myId" class="greetings">
     <h1 class="green">{{ msg }}</h1>
     <h3>
       You’ve successfully created a project with
@@ -24,16 +30,13 @@ h1 {
   font-size: 2.6rem;
   top: -10px;
 }
-
 h3 {
   font-size: 1.2rem;
 }
-
 .greetings h1,
 .greetings h3 {
   text-align: center;
 }
-
 @media (min-width: 1024px) {
   .greetings h1,
   .greetings h3 {
