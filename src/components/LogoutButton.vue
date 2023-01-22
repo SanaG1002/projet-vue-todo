@@ -15,7 +15,7 @@ const routeNames = ["login", "register"];
 <template>
   <button
     v-if="!routeNames.includes($route.name)"
-    class="btn btn-danger"
+    class="btn btn-secondary"
     @click="logout"
     type="button"
   >

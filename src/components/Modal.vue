@@ -12,13 +12,15 @@ defineProps({
       <div class="background" @click="toggleModal"></div>
       <div class="not-a-modal container">
         <button class="close" @click="toggleModal">X</button>
-        <button class="btn btn-secondary" @click="onToggleUpdateModal">Update</button>
+        
   <Modal :isOpen="isUpdateModalOpen" :toggleModal="onToggleUpdateModal">
-    <UpdateTodo />
+   
   </Modal>
         <section class="modal__content">
           <slot></slot>
         </section>
+        
+  
       </div>
     </div>
   </Teleport>

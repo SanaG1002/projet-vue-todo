@@ -2,7 +2,6 @@
 import { onMounted } from "vue";
 import { RouterView, useRouter } from "vue-router";
 import AuthService from "./services/auth-service";
-import LogoutButton from "./components/LogoutButton.vue";
 
 const authService = new AuthService();
 const router = useRouter();
@@ -19,7 +18,6 @@ onMounted(tryAuth);
 </script>
 
 <template>
-  <LogoutButton />
   <RouterView />
 </template>
 
