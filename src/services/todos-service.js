@@ -1,6 +1,7 @@
 
 import constants from '../constants';
 import AuthService from './auth-service';
+import TodoApiAdapter from "../services/todo-api-adapter";
 
 class TodosService {
 	url = constants.apiUrl;
@@ -29,7 +30,7 @@ class TodosService {
 			const json = await response.json();
 
 			if (json.success) {
-				return json.data;
+				return TodoApiAdapter.apiRecipesToRecipes(json.data);
 			} else {
 				throw new Error(`Could not fetch ${this.endpoint}, received ${json.message}`);
 			}
@@ -58,7 +59,7 @@ class TodosService {
 			
 			const json = await response.json();
 
-			return json.data;
+			return TodoApiAdapter.formatRecipe(json.data);
 		} catch (error) {
 			console.error(error);
 
@@ -68,6 +69,10 @@ class TodosService {
 
 	async createTodo(todo) {
 		const endpoint = "todos";
+
+		delete todo.id;
+		delete todo.createdAt;
+		delete todo.updatedAt;
 
 		try {
 			const response = await fetch(`${this.url}/${endpoint}`, {
@@ -85,7 +90,7 @@ class TodosService {
 
 			const json = await response.json();
 
-			return json.data;
+			return TodoApiAdapter.formatRecipe(json.data);
 		} catch (error) {
 			console.error(error);
 
@@ -95,6 +100,9 @@ class TodosService {
 
     async updateTodo(todo) {
 		const endpoint = "todos";
+
+		delete todo.createdAt;
+		delete todo.updatedAt;
 
 		try {
 			const response = await fetch(`${this.url}/${endpoint}`, {
@@ -138,7 +146,7 @@ class TodosService {
 
 			const json = await response.json();
 
-			return json.data;
+			return TodoApiAdapter.formatRecipe(json.data);
 		} catch (error) {
 			console.error(error);
 

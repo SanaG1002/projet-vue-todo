@@ -1,6 +1,9 @@
 
 class Todo {
 	constructor(
+		id,
+		createdAt,
+		updatedAt,
 		title, 
 		content, 
 		done, 
@@ -8,6 +11,9 @@ class Todo {
 		timeLimit, 
 		doneAt
 	) {
+		this.id = id;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
 		this.title = title;
 		this.content = content;
 		this.done = done;
@@ -37,11 +43,17 @@ class Todo {
 		}
 
         static build(
+			id,
+			createdAt,
+			updatedAt,
 			title, 
 			content, 
 			timeLimit
 		) {
         	return new Todo(
+				id,
+				createdAt,
+				updatedAt,
 				title, 
 				content,
 				this.done,

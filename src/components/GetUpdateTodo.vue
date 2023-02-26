@@ -33,9 +33,12 @@ const updateTodo = async () => {
     .withUser(authService.getUserId())
     .withDoneAt(doneAt.value)
     .build(
-      title.value,
-      content.value,
-      timeLimit.value
+        props.todoId,
+        null,
+        null,
+        title.value,
+        content.value,
+        timeLimit.value
     );
 
   const updateTodo = await TodosService.updateTodo(todo);
@@ -48,7 +51,7 @@ const updateTodo = async () => {
 const deleteTodo = async () => {
     const deleteTodo = await TodosService.deleteTodo(props.todoId);
     alert(
-       deleteTodo.title + ' (id: ' + deleteTodo._id + ')" deletion success.' + 
+       deleteTodo.title + ' (id: ' + deleteTodo.id + ')" deletion success.' + 
         'Refresh the page'
     );
 };
@@ -60,7 +63,7 @@ const deleteTodo = async () => {
 
         <h3>Info</h3> 
         <table> 
-            <tr><td>Id: </td><td>{{ todo._id }}</td></tr>
+            <tr><td>Id: </td><td>{{ todo.id }}</td></tr>
             <tr><td>Creation: </td><td>{{ todo.createdAt }}</td></tr>
             <tr><td>Mise a jour: </td><td>{{ todo.updatedAt }}</td></tr>
         </table>  

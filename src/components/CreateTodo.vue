@@ -19,6 +19,9 @@ const createTodo = async () => {
     .withUser(authService.getUserId())
     .withDoneAt(doneAt.value)
     .build(
+      null,
+      null,
+      null,
       title.value,
       content.value,
       timeLimit.value
@@ -26,7 +29,7 @@ const createTodo = async () => {
 
   const createTodo = await TodosService.createTodo(todo);
   alert(
-    createTodo.title + ' (id: ' + createTodo._id + ')" creation success.' + 
+    createTodo.title + ' (id: ' + createTodo.id + ')" creation success.' + 
     'Refresh the page'
   );
 };

@@ -59,7 +59,7 @@
   </div>
 
   <Modal :toggleModal="onModalClose" :isOpen="!!todo">
-    <GetUpdateTodo :todoId=todo._id />
+    <GetUpdateTodo :todoId=todo.id />
   </Modal>
 </template>
 
