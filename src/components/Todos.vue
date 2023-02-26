@@ -3,13 +3,13 @@
     ref,
     onMounted
   } from "vue";
-  import TodosService from "../services/todos-service";
+  import TodosServiceBuilder from "../builders/TodosServiceBuider";
   import Modal from "./Modal.vue";
   import GetUpdateTodo from "./GetUpdateTodo.vue";
   import CreateTodo from "./CreateTodo.vue";
   import LogoutButton from "./LogoutButton.vue";
 
-  const todosService = new TodosService();
+  const todosService = new TodosServiceBuilder().build();
   const todo = ref(null);
   const todos = ref([]);
   const isCreateModalOpen = ref(false);
