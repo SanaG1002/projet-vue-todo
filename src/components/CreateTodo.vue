@@ -4,7 +4,6 @@ import AuthService from "../services/auth-service";
 import TodosService from "../services/todos-service";
 
 const authService = new AuthService();
-const todosService = new TodosService();
 const title = ref("");
 const content = ref("");
 const timeLimit = ref(null);
@@ -23,7 +22,7 @@ const createTodo = async () => {
     doneAt: doneAt.value,
   };
 
-  const createTodo = await todosService.createTodo(todo);
+  const createTodo = await TodosService.createTodo(todo);
   alert(
     createTodo.title + ' (id: ' + createTodo._id + ')" creation success.' + 
     'Refresh the page'

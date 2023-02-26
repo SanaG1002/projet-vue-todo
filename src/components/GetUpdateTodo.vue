@@ -8,7 +8,6 @@ const props = defineProps({
 })
 
 const authService = new AuthService();
-const todosService = new TodosService();
 const todo = ref(null);
 const title = ref("");
 const content = ref("");
@@ -16,7 +15,7 @@ const timeLimit = ref(null);
 const doneAt = ref(null);
 
 const getTodo = async () => {
-    todo.value = await todosService.getTodo(props.todoId)
+    todo.value = await TodosService.getTodo(props.todoId)
     title.value = todo.value.title;
     content.value = todo.value.content;
     timeLimit.value = todo.value.timeLimit;
@@ -37,7 +36,7 @@ const updateTodo = async () => {
     doneAt: doneAt.value,
   };
 
-  const updateTodo = await todosService.updateTodo(todo);
+  const updateTodo = await TodosService.updateTodo(todo);
   alert(
      todo.title + ' (id: ' + props.todoId + ')" updating success.' + 
     'Refresh the page'
@@ -45,7 +44,7 @@ const updateTodo = async () => {
 };
 
 const deleteTodo = async () => {
-    const deleteTodo = await todosService.deleteTodo(props.todoId);
+    const deleteTodo = await TodosService.deleteTodo(props.todoId);
     alert(
        deleteTodo.title + ' (id: ' + deleteTodo._id + ')" deletion success.' + 
         'Refresh the page'

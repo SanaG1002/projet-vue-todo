@@ -9,12 +9,11 @@
   import CreateTodo from "./CreateTodo.vue";
   import LogoutButton from "./LogoutButton.vue";
 
-  const todosService = new TodosService();
   const todo = ref(null);
   const todos = ref([]);
   const isCreateModalOpen = ref(false);
 
-  const getTodos = async () => (todos.value = await todosService.getTodos());
+  const getTodos = async () => (todos.value = await TodosService.getTodos());
   onMounted(getTodos);
 
   const onTodoClick = (t) => {

@@ -145,6 +145,16 @@ class TodosService {
 			return null;
 		}
 	}
+
+	static instance = null;
+
+	static getInstance() {
+		if (!this.instance) {
+			this.instance = new this();
+		}
+
+		return this.instance;
+	}
 }
 
-export default TodosService;
+export default TodosService.getInstance();
