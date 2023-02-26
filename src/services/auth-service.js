@@ -1,4 +1,5 @@
 import constants from '../constants';
+import authObserver, {authEvents} from '../utils/auth-observer';
 
 class AuthService {
 	url = `${constants.apiUrl}/users`;
@@ -85,6 +86,8 @@ class AuthService {
 				this.setUserId(user._id);
 			}
 
+			authObserver.publish(authEvents.onLogin, user);
+
 			return json;
 		} catch (e) {
 			console.error(e)
@@ -123,6 +126,8 @@ class AuthService {
 	logout() {
 		this.clearToken();
 		this.clearUserId();
+
+		authObserver.publish(authEvents.onLogout);
 	}
 }
 

@@ -2,6 +2,7 @@
 import constants from '../constants';
 import AuthService from './auth-service';
 import TodoApiAdapter from "../services/todo-api-adapter";
+import todoObserver, {todoEvents} from '../utils/todo-observer';
 
 class TodosService {
 	url = constants.apiUrl;
@@ -70,6 +71,8 @@ class TodosService {
 	async createTodo(todo) {
 		const endpoint = "todos";
 
+		todoObserver.publish(todoEvents.beforeCreate, todo);
+
 		delete todo.id;
 		delete todo.createdAt;
 		delete todo.updatedAt;
@@ -101,6 +104,8 @@ class TodosService {
     async updateTodo(todo) {
 		const endpoint = "todos";
 
+		todoObserver.publish(todoEvents.beforeUpdate, todo);
+
 		delete todo.createdAt;
 		delete todo.updatedAt;
 
@@ -130,6 +135,8 @@ class TodosService {
 
 	async deleteTodo(id) {
 		const endpoint = "todos";
+
+		todoObserver.publish(todoEvents.beforeDelete, id);
 
 		try {
 			const response = await fetch(`${this.url}/${endpoint}/${id}`, {
