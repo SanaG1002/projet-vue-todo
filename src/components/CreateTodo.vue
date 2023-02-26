@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import AuthService from "../services/auth-service";
+import Todo from "../services/todo";
 import TodosService from "../services/todos-service";
 
 const authService = new AuthService();
@@ -13,14 +14,15 @@ const createTodo = async () => {
   timeLimit.value = (timeLimit.value == '' ? null : timeLimit.value);
   doneAt.value = (doneAt.value == '' ? null : doneAt.value);
 
-  const todo = {
-    title: title.value,
-    content: content.value,
-    done: (doneAt.value != null),
-    user: authService.getUserId(),
-    timeLimit: timeLimit.value,
-    doneAt: doneAt.value,
-  };
+  const todo = Todo.Builder
+    .withDone((doneAt.value != null))
+    .withUser(authService.getUserId())
+    .withDoneAt(doneAt.value)
+    .build(
+      title.value,
+      content.value,
+      timeLimit.value
+    );
 
   const createTodo = await TodosService.createTodo(todo);
   alert(
